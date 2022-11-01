@@ -38,3 +38,10 @@ class AddressForm(forms.ModelForm):
                                                                                               'etc.'}),
                    'city': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'City'}),
                    'state': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'State or Province'})}
+
+
+class PasswordChangeForm(PasswordChangeForm):
+    old_password = forms.CharField(label=_("Old Password"), strip=False, widget=forms.PasswordInput(attrs={'autocomplete':'current-password', 'auto-focus': True, 'class': 'form-control', 'placeholder': 'Current Password'}))
+    new_password1 = forms.CharField(label=_("New Password"), strip=False, widget=forms.PasswordInput(attrs={'autocomplete':'new-password', 'class': 'form-control', 'placeholder': 'New Password'}), help_text=password_validation.password_validators_help_text_html())
+    new_password2 = forms.CharField(label=_("Confirm Password"), strip=False, widget=forms.PasswordInput(attrs={'autocomplete':'new-password', 'class': 'form-control', 'placeholder': 'Confirm Password'}))
+
