@@ -66,5 +66,15 @@ class Cart(models.Model):
     @property
     def total_price(self):
         return self.quantity * self.product.price
-        
+
+
+STATUS_CHOICES = (
+    ('Pending', 'Pending'),
+    ('Accepted', 'Accepted'),
+    ('Packed', 'Packed'),
+    ('On The Way', 'On The Way'),
+    ('Delivered', 'Delivered'),
+    ('Cancelled', 'Cancelled')
+)
+
     
