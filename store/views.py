@@ -60,3 +60,9 @@ class RegistrationView(View):
             form.save()
         return render(request, 'account/registration.html', {'form': form})
 
+
+@login_required
+def profile(request):
+    addresses = Address.objects.filter(user=request.user)
+    orders = Order.objects.filter(user=request.user)
+    return render(request, 'account/register.html', {'addresses': addresses, 'orders': orders})
