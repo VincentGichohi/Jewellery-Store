@@ -42,3 +42,11 @@ class OrderAdmin(admin.ModelAdmin):
     list_per_page = 20
     search_fields = ('user', 'product')
 
+
+admin.site.register(Address, AddressAdmin)
+admin.site.register(Category, CategoryAdmin)
+admin.site.register(Product, ProductAdmin)
+admin.site.register(Cart, CartAdmin)
+admin.site.register(Order, OrderAdmin)
+
+
