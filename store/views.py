@@ -32,3 +32,14 @@ def all_categories(request):
     categories = Category.objects.filter(is_active=True)
     return render(request, 'store/categories.html', {'categories': categories})
 
+
+def category_products(request, slug):
+    category = get_object_or_404(Category, slug=slug)
+    products = Product.objects.filter(is_active=True, category=category)
+    categories = Category.objects.filter(is_active=True)
+    context = {
+        'category': category,
+        'products': products,
+        'categories': categories
+    }
+    return render(request, 'store/category_products.html', context)
