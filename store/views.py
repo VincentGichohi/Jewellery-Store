@@ -66,3 +66,10 @@ def profile(request):
     addresses = Address.objects.filter(user=request.user)
     orders = Order.objects.filter(user=request.user)
     return render(request, 'account/register.html', {'addresses': addresses, 'orders': orders})
+
+
+@method_decorator(login_required, name='dispatch')
+class AddressView(View):
+    def get(self, request):
+        form = AddressForm()
+        return render(request, 'account/add_address.html', {'form': form})
