@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from .models import Address, Cart, Category, Order, Product
@@ -51,3 +52,11 @@ class RegistrationView(View):
     def get(self, request):
         form = RegistrationForm()
         return render(request, 'account/register.html', {'form': form})
+
+    def post(self, request):
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            messages.success(request, 'Congratulations! Registration Successful')
+            form.save()
+        return render(request, 'account/registration.html', {'form': form})
+
