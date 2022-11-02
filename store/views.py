@@ -73,3 +73,15 @@ class AddressView(View):
     def get(self, request):
         form = AddressForm()
         return render(request, 'account/add_address.html', {'form': form})
+
+    def post(self, request):
+        form = AddressForm(request.POST)
+        if form.is_valid():
+            user = request.user
+            locality = form.cleaned_data['locality']
+            city = form.cleaned_data['city']
+            state = form.cleaned_data['state']
+            reg = Address(user=user, locality=locality, city=city, state=state)
+            reg.save()
+            messages.success(request, 'New address added successfully')
+        return redirect('store: profile')
