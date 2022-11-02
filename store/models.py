@@ -7,8 +7,9 @@ class Address(models.Model):
     user = models.ForeignKey(User, verbose_name="User", on_delete=models.CASCADE)
     locality = models.CharField(max_length=150, verbose_name='Nearest Location')
     city = models.CharField(max_length=150, verbose_name='State')
-    
-    def __str__(self) -> str:
+    state = models.CharField(max_length=150, verbose_name="State")
+
+    def __str__(self):
         return self.locality
     
     
@@ -26,7 +27,7 @@ class Category(models.Model):
         verbose_name_plural = 'Categories'
         ordering= ('-created_at', )
         
-    def __str__(self) -> str:
+    def __str__(self):
         return self.title
     
 
@@ -42,7 +43,7 @@ class Product(models.Model):
     is_active = models.BooleanField(verbose_name="Is Active?")
     is_featured = models.BooleanField(verbose_name="Is Featured?")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Created Date")
-    updated_at = models.DateTimeField(auto_add=True, verbose_name="Updated Date")
+    updated_at = models.DateTimeField(auto_now=True, verbose_name="Updated Date")
 
     class Meta:
         verbose_name_plural = "Products"
@@ -77,13 +78,12 @@ STATUS_CHOICES = (
     ('Cancelled', 'Cancelled')
 )
 
-    
 
 class Order(models.Model):
     user = models.ForeignKey(User,verbose_name="User", on_delete=models.CASCADE)
     address = models.ForeignKey(Address, verbose_name="Shipping Address", on_delete=models.CASCADE)
     product = models.ForeignKey(Product, verbose_name="Product", on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(verbose_name="Quantity")
-    offered_date = models.DateTimeField(auto_now_add=True, verbose_name="Ordered Date")
+    ordered_date = models.DateTimeField(auto_now_add=True, verbose_name="Ordered Date")
     status = models.CharField(choices=STATUS_CHOICES, max_length=50, default="Pending")
     

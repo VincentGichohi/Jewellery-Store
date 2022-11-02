@@ -47,7 +47,6 @@ def category_products(request, slug):
 
 
 # Authentication
-
 class RegistrationView(View):
     def get(self, request):
         form = RegistrationForm()
@@ -58,7 +57,7 @@ class RegistrationView(View):
         if form.is_valid():
             messages.success(request, 'Congratulations! Registration Successful')
             form.save()
-        return render(request, 'account/registration.html', {'form': form})
+        return render(request, 'account/login.html', {'form': form})
 
 
 @login_required
