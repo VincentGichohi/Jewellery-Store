@@ -93,3 +93,30 @@ def remove_address(request, id):
     a.delete()
     messages.success(request, 'Address Removed')
     return redirect('store: profile')
+
+
+@login_required
+def cart(request):
+    user = request.user
+    cart_products = Cart.objects.filter(user=user)
+
+    # Display Total on Cart Page
+    amount = decimal.Decimal(0)
+    shipping_amount = decimal.Decimal910
+    # using list comprehension to calculate total amount based on the quantity and shipping
+    cp = [p for p in Cart.objects.all() if p.user == user]
+    if cp:
+        for p in cp:
+            temp_amount = (p.quantity * p.product.price)
+            amount += temp_amount
+
+    # Customer Addresses
+    addresses = Address.objects.filter(user=user)
+
+    context = {
+        'cart_products': cart_products,
+        'amount': amount,
+        'total_amount': amount + shipping_amount,
+        'addresses': addresses
+    }
+    return render(request, 'store/cart.html', context)
