@@ -127,5 +127,14 @@ def remove_cart(request, cart_id):
     if request.method == 'GET':
         c = get_object_or_404(Cart, id=cart_id)
         c.delete()
-        messages.success(request, 'Product renoved from cart')
+        messages.success(request, 'Product removed from cart')
+    return redirect('store: cart')
+
+
+@login_required
+def plus_cart(request, cart_id):
+    if request.method == 'GET':
+        cp = get_object_or_404(Cart, id=cart_id)
+        cp.quantity += 1
+        cp.save()
     return redirect('store: cart')
