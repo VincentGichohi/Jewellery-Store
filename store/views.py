@@ -85,3 +85,11 @@ class AddressView(View):
             reg.save()
             messages.success(request, 'New address added successfully')
         return redirect('store: profile')
+
+
+@login_required
+def remove_address(request, id):
+    a = get_object_or_404(Address, user=request.user, id=id)
+    a.delete()
+    messages.success(request, 'Address Removed')
+    return redirect('store: profile')
