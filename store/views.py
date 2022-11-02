@@ -138,3 +138,16 @@ def plus_cart(request, cart_id):
         cp.quantity += 1
         cp.save()
     return redirect('store: cart')
+
+
+@login_required
+def minus_cart(request, cart_id):
+    if request.method == 'GET':
+        cp = get_object_or_404(Cart, id=cart_id)
+        # Remove the product if the quantity is already 1
+        if cp.quantity == 1:
+            cp.delete()
+        else:
+            cp.quantity -= 1
+            cp.save()
+    return redirect('store:cart')
