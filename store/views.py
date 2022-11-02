@@ -43,3 +43,11 @@ def category_products(request, slug):
         'categories': categories
     }
     return render(request, 'store/category_products.html', context)
+
+
+# Authentication
+
+class RegistrationView(View):
+    def get(self, request):
+        form = RegistrationForm()
+        return render(request, 'account/register.html', {'form': form})
