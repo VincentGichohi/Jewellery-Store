@@ -96,6 +96,23 @@ def remove_address(request, id):
 
 
 @login_required
+def add_to_cart(request):
+    user = request.user
+    product_id = request.GET.get('prod_id')
+    product = get_object_or_404(Product, id=product_id)
+
+    # Check whether the Product is already in Cart or Not
+    item_already_in_cart = Cart.objects.filter(product=product_id, user=user)
+    if item_already_in_cart:
+        cp = get_object_or_404(Cart, product=product_id, user=user)
+        cp.quantity += 1
+        cp.save()
+    else:
+        Cart(user=user, product=product).save()
+
+    return redirect('store:cart')
+
+@login_required
 def cart(request):
     user = request.user
     cart_products = Cart.objects.filter(user=user)
