@@ -28,3 +28,7 @@ def detail(request, slug):
     return render(request, 'store/detail.html', context)
 
 
+def all_categories(request):
+    categories = Category.objects.filter(is_active=True)
+    return render(request, 'store/categories.html', {'categories': categories})
+
