@@ -177,3 +177,7 @@ def orders(request):
 
 def shop(request):
     return render(request, 'shop.html')
+
+
+def test(request):
+    return render(request, 'store/test.html')
