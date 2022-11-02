@@ -7,3 +7,12 @@ class AddressAdmin(admin.ModelAdmin):
     list_filter = ('city', 'state')
     list_per_page = 10
     search_fields = ('locality', 'city', 'state')
+
+
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('title', 'slug', 'category_image', 'is_active', 'is_featured', 'updated_at')
+    list_editable = ('slug', 'is_active', 'is_featured')
+    list_filter = ('is_active', 'is_featured')
+    list_per_page = 10
+    search_fields = ('title', 'description')
+    prepopulated_fields = {'slug': ('title',)}
