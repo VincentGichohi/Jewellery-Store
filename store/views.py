@@ -169,3 +169,7 @@ def checkout(request):
     return redirect('store:orders')
 
 
+@login_required
+def orders(request):
+    all_orders = Order.objects.filter(user=request.user).order_by('-ordered_data')
+    return render(request, 'store/orders.html', {'orders': all_orders})
